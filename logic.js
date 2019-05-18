@@ -17,16 +17,19 @@ const addContact = (contact)=>{
 	Contact.create(contact, (err)=>{
 		assert.equal(null, err);
 	    console.info('New contact added');
-	    // db.close();
+	    mongoose.connection.close();
 	});
 };
 
 const getContact = (name)=>{
 	let search = new RegExp(name, 'i');
-	Contact.find({$or: [{firstName: search}, {lastName: search}]});
-	assert.equal(null, err);
-	console.log(contact);
-	console.log(`${contact.length} matches`);
+	Contact.find({$or: [{firstName: search}, {lastName: search}]})
+	.exec((err, contact)=>{
+		assert.equal(null, err);
+		console.log(contact);
+		console.log(`${contact.length} matches`);
+		mongoose.connection.close();
+	})	
 	// db.disconnect();
 };
 
