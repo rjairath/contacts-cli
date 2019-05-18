@@ -33,4 +33,32 @@ const getContact = (name)=>{
 	// db.disconnect();
 };
 
-module.exports = {addContact, getContact};	 
+const updateContact = (_id, contact)=>{
+	Contact.update({_id}, contact)
+	.exec((err, status) => {
+	    assert.equal(null, err);
+	    console.info('Updated successfully');
+	    mongoose.connection.close();
+	});
+};
+
+const deleteContact = (_id)=>{
+	Contact.remove({_id})
+	.exec((err, status)=>{
+		assert.equal(null, err);
+		console.info("Deleted successfully");
+		mongoose.connection.close();
+	})
+};
+
+const getContactList = () => {
+  Contact.find()
+  .exec((err, contacts) => {
+    assert.equal(null, err);
+    console.log(contacts);
+    console.log(`${contacts.length} total`);
+    mongoose.connection.close();
+  })
+};
+
+module.exports = {addContact, getContact, updateContact, deleteContact, getContactList};	 

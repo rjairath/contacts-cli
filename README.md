@@ -5,3 +5,6 @@
 **Commands**
 - myContacts addContact | a
 - myContacts getContact | g <name>
+- myContacts updateContact | u <id>
+- myContacts deleteContact | d <id>
+- myContacts getContactList | l

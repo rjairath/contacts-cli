@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const inquirer = require('inquirer');
-const {addContact, getContact} = require('./logic');
+const {addContact, getContact, updateContact, deleteContact, getContactList} = require('./logic');
 
 const questions = ([
 	{
@@ -48,6 +48,33 @@ program
 	.description("get contact details")
 	.action((name)=>{
 		getContact(name);
+	});
+
+program
+	.command("updateContact <_id>")
+	.alias("u")
+	.description("update contact details")
+	.action((_id)=>{
+		inquirer.prompt(questions)
+		.then((response)=>{
+			updateContact(_id, response);
+		})
+	});
+
+program
+	.command("deleteContact <_id>")
+	.alias("d")
+	.description("delete selected contact details")
+	.action((_id)=>{
+		deleteContact(_id);
+	});
+
+program
+	.command("getContactList")
+	.alias("l")
+	.description("get all contacts")
+	.action(()=>{
+		getContactList();
 	});
 
 program.parse(process.argv); 
